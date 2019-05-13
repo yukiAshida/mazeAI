@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
-from utils import DIRECTION
 
+from utils import DIRECTION
+from utils import visualize
 
 def initilize(w,h):
     """
@@ -59,26 +59,7 @@ def possibleDirection(maze,wi,hi):
     return np.where([True if maze[wi+DIRECTION[i][0]][hi+DIRECTION[i][1]]==0 else False for i in range(4)])[0]
 
 
-def visualize(maze, ax):
-    """
-    Parameters
-    -----------------
-    maze : ndarray
-        迷路を表す配列
-    
-    Returns
-    -----------------
-    None
-    """
 
-    # Figureを用意
-    ax.clear()
-    ax.tick_params(bottom=False, left=False, labelleft=False, labelbottom=False)
-
-    # カラーマップを生成
-    List=[(0, "#FFFFFF"),(0.5,"#FF0000"),(1,"#000000")]
-    cm=LinearSegmentedColormap.from_list("",List)
-    ax.imshow(maze,cmap=cm)
 
 
 class Solver():
@@ -121,7 +102,7 @@ class Solver():
         for cell in result:
             maze_copy[cell[0]][cell[1]] = 0.2
         
-        return maze_copy
+        return maze_copy, len(result)
 
 
 if __name__=="__main__":
@@ -135,7 +116,7 @@ if __name__=="__main__":
     visualize(maze,ax)
     
     solver = Solver(maze)
-    result = solver.solve()
+    result,length = solver.solve()
     
     ax = fig.add_subplot(2,1,2)
     visualize(result,ax)
