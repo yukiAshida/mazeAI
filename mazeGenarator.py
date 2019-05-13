@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+from utils import DIRECTION
 
-DIRECTION = {0:(-1,0),1:(0,1),2:(1,0),3:(0,-1)}
 
 def initilize(w,h):
     """
